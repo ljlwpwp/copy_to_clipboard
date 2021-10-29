@@ -2,10 +2,8 @@ function init() {
     var copy = document.getElementsByClassName('btn_copy');
     for (var i = 0; i < copy.length; ++i) {
         var digits = getDigits(copy[i].dataset.value);
-        var id = e.target.offsetParent.id;
-        var btn = document.querySelector(id);
-        var clipboard = new ClipboardJS(btn);
-        btn.dataset.clipboardText = digits;
+        var clipboard = new ClipboardJS(copy[i]);
+        copy[i].dataset.clipboardText = digits;
         clipboard.on('success', function () {
             window.alert('계좌번호가 복사 되었습니다.');
         });
