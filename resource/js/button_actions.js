@@ -1,12 +1,13 @@
 function init() {
     var copy = document.getElementsByClassName('btn_copy');
     for (var i = 0; i < copy.length; ++i) {
-        copy[i].addEventListener('click', function(e) {
-            var digits = getDigits(e.target.offsetParent.dataset.value);
-            navigator.clipboard.writeText(digits).then(function() {
-                window.alert('계좌번호가 복사 되었습니다.');
-            }, function() {
-            });
+        var digits = getDigits(copy[i].dataset.value);
+        var id = e.target.offsetParent.id;
+        var btn = document.querySelector(id);
+        var clipboard = new ClipboardJS(btn);
+        btn.dataset.clipboardText = digits;
+        clipboard.on('success', function () {
+            window.alert('계좌번호가 복사 되었습니다.');
         });
     }
 
@@ -19,7 +20,15 @@ function init() {
 }
 
 function copyToClipboard(val) {
+    var btn = document.querySelector('#b');
+    var clipboard = new ClipboardJS(btn);
+    btn.dataset.clipboardText = getUrlParams().val;
 
+    clipboard.on('success', function () {
+        window.alert('계좌번호가 복사 되었습니다.');
+        window.open('', '_self', '');
+        window.close();
+    });
 }
 
 function getDigits(val) {
